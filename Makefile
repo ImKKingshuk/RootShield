@@ -1,3 +1,6 @@
+#  RootShield
+#  Author: @ImKKingshuk
+
 MODULE_NAME := RootShield
 MODULE_OBJS := main.o exec_monitor.o file_monitor.o process_monitor.o
 obj-m := $(MODULE_NAME).o
