@@ -14,7 +14,6 @@
 - 📝 **File Write Protection**: Prevents unauthorized writes to critical directories such as `/dev/block` and `.magisk/block`.
 - 🗑️ **File Deletion Protection**: Safeguards important system directories from being unlinked or deleted.
 - 📊 **Detailed Logging**: Logs all blocked activities for easy monitoring and auditing.
-- 💡 **Modular Design**: Organized into separate modules (`exec_monitor`, `file_monitor`, `process_monitor`) for ease of development and customization.
 - 🛠️ **Easy to Integrate**: Simple integration as a kernel module with a straightforward setup process.
 - 🔄 **Dynamic Module Loading/Unloading**: Easily load and unload the RootShield module as needed.
 
