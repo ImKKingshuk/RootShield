@@ -1,12 +1,11 @@
 <h1 align="center">RootShield</h1>
 <h3 align="center">v1.1.0</h3>
 
-**RootShield: The Ultimate Shield for Rooted Android Devices** - Protect your rooted Android device from unauthorized file operations and process executions! 🛡️ RootShield is a powerful kernel module that ensures your device remains secure by monitoring and preventing risky activities. Built to safeguard your most critical files and processes, RootShield is your device’s ultimate defense mechanism. 🛠️🔥
+**RootShield : The Ultimate Shield for Rooted Android Devices** - Protect your rooted Android device from unauthorized file operations and process executions! 🛡️ RootShield is a powerful kernel module that ensures your device remains secure by monitoring and preventing risky activities. Built to safeguard your most critical files and processes, RootShield is your device’s ultimate defense mechanism. 🛠️🔥
 
 ## What's New (v1.1.0)
 
 - **Enhanced Security**: Introduced more comprehensive protection mechanisms against unauthorized file writes and process executions.
-- **Modular Architecture**: Codebase reorganized into separate modules for better maintainability and scalability.
 - **Performance Optimizations**: Optimized kprobe handlers for improved system performance.
 
 ## Features
@@ -63,7 +62,7 @@ To secure your Android device with **RootShield**, follow these steps:
 
 ## Disclaimer
 
-🌟🌟🌟 "The developer of **RootShield: The Ultimate Shield for Rooted Android Devices** is not responsible for any misuse or illegal activities conducted with this tool. Use at your own risk." 🌟🌟🌟
+🌟🌟🌟 "The developer of **RootShield : The Ultimate Shield for Rooted Android Devices** is not responsible for any misuse or illegal activities conducted with this tool. Use at your own risk." 🌟🌟🌟
 
 ### Note
 
@@ -71,6 +70,6 @@ RootShield is a powerful tool designed to protect rooted Android devices. It sho
 
 ## Acknowledgments
 
-**RootShield: The Ultimate Shield for Rooted Android Devices** is developed for educational and research purposes. It is intended to help users and developers secure their devices in a responsible manner. The developer of this tool, @ImKKingshuk, is not liable for any misuse. Contributions are welcome through issue reporting and pull requests!
+**RootShield : The Ultimate Shield for Rooted Android Devices** is developed for educational and research purposes. It is intended to help users and developers secure their devices in a responsible manner. The developer of this tool, @ImKKingshuk, is not liable for any misuse. Contributions are welcome through issue reporting and pull requests!
 
 ### 😊 Stay Secure with RootShield! 😊
