@@ -1,3 +1,6 @@
+//  RootShield
+//  Author: @ImKKingshuk
+
 #include "rootshield.h"
 
 static int handler_pre_do_unlinkat(struct kprobe *p, struct pt_regs *regs) {
