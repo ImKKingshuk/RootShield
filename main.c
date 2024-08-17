@@ -1,3 +1,6 @@
+//  RootShield
+//  Author: @ImKKingshuk
+
 #include "rootshield.h"
 
 void print_banner(void) {
