@@ -2,6 +2,7 @@
 //  Author: @ImKKingshuk
 
 #include "rootshield.h"
+#include "config.h"
 
 // Log security events with timestamp and severity
 void log_security_event(const char *message, const char *path) {

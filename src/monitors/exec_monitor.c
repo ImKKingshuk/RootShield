@@ -2,6 +2,7 @@
 //  Author: @ImKKingshuk
 
 #include "rootshield.h"
+#include "config.h"
 
 // List of suspicious binaries to monitor
 static const char *suspicious_binaries[] = {

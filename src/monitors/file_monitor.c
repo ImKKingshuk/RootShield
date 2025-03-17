@@ -1,7 +1,8 @@
 //  RootShield
 //  Author: @ImKKingshuk
 
-#include "rootshield.h"
+#include "../include/rootshield.h"
+#include "../include/config.h"
 
 // List of protected paths that should not be modified
 static const char *protected_paths[] = {

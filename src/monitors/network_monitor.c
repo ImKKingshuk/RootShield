@@ -2,6 +2,7 @@
 //  Author: @ImKKingshuk
 
 #include "rootshield.h"
+#include "config.h"
 #include <linux/netfilter.h>
 #include <linux/netfilter_ipv4.h>
 #include <linux/ip.h>

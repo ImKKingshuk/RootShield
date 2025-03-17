@@ -1,19 +1,27 @@
 <h1 align="center">RootShield</h1>
-<h3 align="center">v1.1.0</h3>
+<h3 align="center">v2.0.0</h3>
 
 **RootShield : The Ultimate Shield for Rooted Android Devices** - Protect your rooted Android device from unauthorized file operations and process executions! 🛡️ RootShield is a powerful kernel module that ensures your device remains secure by monitoring and preventing risky activities. Built to safeguard your most critical files and processes, RootShield is your device’s ultimate defense mechanism. 🛠️🔥
 
-## What's New (v1.1.0)
+## What's New (v2.0.0)
 
-- **Enhanced Security**: Introduced more comprehensive protection mechanisms against unauthorized file writes and process executions.
-- **Performance Optimizations**: Optimized kprobe handlers for improved system performance.
+- **Modular Architecture**: Completely redesigned with a modular structure for better maintainability and extensibility.
+- **Memory Protection**: New memory monitoring to detect and prevent buffer overflows and code injection attacks.
+- **Kernel Module Protection**: Added protection against loading of suspicious or malicious kernel modules.
+- **Configurable Security Policies**: New configuration options to customize security responses and monitoring scope.
+- **Performance Improvements**: Optimized monitoring with conditional compilation for minimal performance impact.
 
 ## Features
 
 - 🛡️ **Execution Protection**: Monitors and blocks execution of sensitive binaries like `su` on rooted devices.
-- 📝 **File Write Protection**: Prevents unauthorized writes to critical directories such as `/dev/block` and `.magisk/block`.
-- 🗑️ **File Deletion Protection**: Safeguards important system directories from being unlinked or deleted.
-- 📊 **Detailed Logging**: Logs all blocked activities for easy monitoring and auditing.
+- 📝 **File System Protection**: Prevents unauthorized writes and access to critical system paths.
+- 🗑️ **Process Protection**: Safeguards against suspicious process creation and manipulation.
+- 🌐 **Network Monitoring**: Detects and blocks connections to suspicious ports commonly used for backdoors.
+- 🔍 **System Call Protection**: Monitors sensitive system calls that could be used for privilege escalation.
+- 💾 **Memory Protection**: Prevents memory-based attacks like buffer overflows and code injection.
+- 📦 **Module Loading Protection**: Blocks loading of suspicious kernel modules that might contain malware.
+- ⚙️ **Configurable Security Policies**: Customize security responses based on your needs.
+- 📊 **Comprehensive Logging**: Detailed security alerts with process information for better threat analysis.
 - 🛠️ **Easy to Integrate**: Simple integration as a kernel module with a straightforward setup process.
 - 🔄 **Dynamic Module Loading/Unloading**: Easily load and unload the RootShield module as needed.
 
@@ -58,17 +66,6 @@ To secure your Android device with **RootShield**, follow these steps:
    ```bash
    dmesg | grep RootShield
    ```
-
-## Features
-
-RootShield v2.0.0 includes comprehensive protection mechanisms:
-
-- **File System Protection**: Guards critical system paths and prevents unauthorized modifications to system files
-- **Process Execution Control**: Blocks execution of suspicious binaries and commands
-- **Process Manipulation Prevention**: Prevents tampering with system processes and memory injection
-- **Network Activity Monitoring**: Detects and blocks connections to suspicious ports commonly used for backdoors
-- **System Call Protection**: Monitors sensitive system calls that could be used for privilege escalation
-- **Comprehensive Logging**: Detailed security alerts with process information for better threat analysis
 
 ## Disclaimer
 

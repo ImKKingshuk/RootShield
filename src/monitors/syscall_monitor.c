@@ -2,6 +2,7 @@
 //  Author: @ImKKingshuk
 
 #include "rootshield.h"
+#include "config.h"
 #include <linux/syscalls.h>
 
 // List of sensitive syscalls to monitor

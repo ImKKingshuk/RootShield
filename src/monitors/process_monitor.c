@@ -2,6 +2,7 @@
 //  Author: @ImKKingshuk
 
 #include "rootshield.h"
+#include "config.h"
 
 // List of protected system paths
 static const char *protected_system_paths[] = {
