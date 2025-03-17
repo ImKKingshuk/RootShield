@@ -8,6 +8,8 @@
 - **Modular Architecture**: Completely redesigned with a modular structure for better maintainability and extensibility.
 - **Memory Protection**: New memory monitoring to detect and prevent buffer overflows and code injection attacks.
 - **Kernel Module Protection**: Added protection against loading of suspicious or malicious kernel modules.
+- **Runtime Configuration**: Dynamic configuration options that can be set when loading the module without recompilation.
+- **Security Statistics**: Comprehensive tracking and reporting of security events and blocked threats.
 - **Configurable Security Policies**: New configuration options to customize security responses and monitoring scope.
 - **Performance Improvements**: Optimized monitoring with conditional compilation for minimal performance impact.
 
@@ -49,34 +51,60 @@ To secure your Android device with **RootShield**, follow these steps:
    make
    ```
 
-3. Load the RootShield module into your kernel:
+3. Load the RootShield module into your kernel with default settings:
 
    ```bash
    sudo insmod rootshield.ko
    ```
 
-4. To unload the module:
+   Or customize the security settings at load time:
+
+   ```bash
+   sudo insmod rootshield.ko exec_monitor_enabled=1 file_monitor_enabled=1 notify_only=1
+   ```
+
+4. Build and run the notification client (optional):
+
+   ```bash
+   cd client
+   make
+   sudo ./rootshield_client
+   ```
+
+5. To unload the module:
 
    ```bash
    sudo rmmod rootshield
    ```
 
-5. Monitor the system logs to see RootShield in action:
+6. Monitor the system logs to see RootShield in action:
 
    ```bash
    dmesg | grep RootShield
    ```
 
-## Disclaimer
+## Runtime Configuration Options
 
-🌟🌟🌟 "The developer of **RootShield : The Ultimate Shield for Rooted Android Devices** is not responsible for any misuse or illegal activities conducted with this tool. Use at your own risk." 🌟🌟🌟
+RootShield supports the following configuration options that can be set when loading the module:
 
-### Note
+| Option                  | Type | Default | Description                                   |
+| ----------------------- | ---- | ------- | --------------------------------------------- |
+| exec_monitor_enabled    | bool | 1       | Enable/disable execution monitoring           |
+| file_monitor_enabled    | bool | 1       | Enable/disable file system monitoring         |
+| process_monitor_enabled | bool | 1       | Enable/disable process monitoring             |
+| network_monitor_enabled | bool | 1       | Enable/disable network monitoring             |
+| syscall_monitor_enabled | bool | 1       | Enable/disable syscall monitoring             |
+| memory_monitor_enabled  | bool | 1       | Enable/disable memory monitoring              |
+| module_monitor_enabled  | bool | 1       | Enable/disable kernel module monitoring       |
+| kill_violating_process  | bool | 1       | Kill processes that violate security policies |
+| notify_only             | bool | 0       | Only log violations without taking action     |
+| block_only              | bool | 0       | Block operations without killing the process  |
+| verbose_logging         | bool | 0       | Enable verbose logging for debugging          |
 
-RootShield is a powerful tool designed to protect rooted Android devices. It should only be used for legitimate purposes with proper authorization. Unauthorized use of RootShield or similar tools can lead to violations of privacy and legal issues. Always ensure you have the necessary permissions and adhere to ethical guidelines when using RootShield. Misuse of this tool is illegal and against ethical hacking practices.
+### Contributing
 
-## Acknowledgments
+Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
 
-**RootShield : The Ultimate Shield for Rooted Android Devices** is developed for educational and research purposes. It is intended to help users and developers secure their devices in a responsible manner. The developer of this tool, @ImKKingshuk, is not liable for any misuse. Contributions are welcome through issue reporting and pull requests!
+## License
 
-### 😊 Stay Secure with RootShield! 😊
+GNU General Public License v3.0

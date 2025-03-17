@@ -2,6 +2,9 @@
 //  Author: @ImKKingshuk
 
 #include "../include/rootshield.h"
+#include "../include/runtime_config.h"
+#include "../include/statistics.h"
+#include "../include/notification.h"
 
 void print_banner(void) {
     const char *banner[] = {
@@ -21,135 +24,147 @@ void print_banner(void) {
 }
 
 static int __init root_shield_init(void) {
+    int ret = 0;
     print_banner();
 
     pr_info("RootShield initializing");
+    
+    // Initialize runtime configuration
+    init_runtime_config();
+    if (!validate_security_policy()) {
+        pr_err("Failed to validate security policy");
+        return -EINVAL;
+    }
+    print_runtime_config();
+    
+    // Initialize statistics
+    init_statistics();
+    
+    // Initialize notification system
+    ret = init_notification_system();
+    if (ret < 0) {
+        pr_err("Failed to initialize notification system: %d", ret);
+        goto cleanup_stats;
+    }
 
-#if ENABLE_EXEC_MONITOR
+if (exec_monitor_enabled) {
     if (register_exec_monitor() < 0) {
         pr_err("Failed to register exec monitor");
         return -1;
     }
-#endif
+}
 
-#if ENABLE_FILE_MONITOR
+if (file_monitor_enabled) {
     if (register_file_monitor() < 0) {
         pr_err("Failed to register file monitor");
         goto cleanup_exec;
         return -1;
     }
-#endif
+}
 
-#if ENABLE_PROCESS_MONITOR
+if (process_monitor_enabled) {
     if (register_process_monitor() < 0) {
         pr_err("Failed to register process monitor");
         goto cleanup_file;
         return -1;
     }
-#endif
+}
     
-#if ENABLE_NETWORK_MONITOR
+if (network_monitor_enabled) {
     if (register_network_monitor() < 0) {
         pr_err("Failed to register network monitor");
         goto cleanup_process;
         return -1;
     }
-#endif
+}
     
-#if ENABLE_SYSCALL_MONITOR
+if (syscall_monitor_enabled) {
     if (register_syscall_monitor() < 0) {
         pr_err("Failed to register syscall monitor");
         goto cleanup_network;
         return -1;
     }
-#endif
+}
 
-#if ENABLE_MEMORY_MONITOR
+if (memory_monitor_enabled) {
     if (register_memory_monitor() < 0) {
         pr_err("Failed to register memory monitor");
         goto cleanup_syscall;
         return -1;
     }
-#endif
+}
 
-#if ENABLE_MODULE_MONITOR
+if (module_monitor_enabled) {
     if (register_module_monitor() < 0) {
         pr_err("Failed to register module monitor");
         goto cleanup_memory;
         return -1;
     }
-#endif
+}
 
     pr_info("RootShield v%s initialized successfully", ROOTSHIELD_VERSION_STR);
     return 0;
 
-#if ENABLE_MODULE_MONITOR
 cleanup_memory:
-#if ENABLE_MEMORY_MONITOR
+if (memory_monitor_enabled) {
     unregister_memory_monitor();
-#endif
-#endif
+}
 
-#if ENABLE_MEMORY_MONITOR
 cleanup_syscall:
-#if ENABLE_SYSCALL_MONITOR
+if (syscall_monitor_enabled) {
     unregister_syscall_monitor();
-#endif
-#endif
+}
 
-#if ENABLE_SYSCALL_MONITOR
 cleanup_network:
-#if ENABLE_NETWORK_MONITOR
+if (network_monitor_enabled) {
     unregister_network_monitor();
-#endif
-#endif
+}
 
-#if ENABLE_NETWORK_MONITOR
 cleanup_process:
-#if ENABLE_PROCESS_MONITOR
+if (process_monitor_enabled) {
     unregister_process_monitor();
-#endif
-#endif
+}
 
-#if ENABLE_PROCESS_MONITOR
 cleanup_file:
-#if ENABLE_FILE_MONITOR
+if (file_monitor_enabled) {
     unregister_file_monitor();
-#endif
-#endif
+}
 
-#if ENABLE_FILE_MONITOR
 cleanup_exec:
-#if ENABLE_EXEC_MONITOR
+if (exec_monitor_enabled) {
     unregister_exec_monitor();
-#endif
-#endif
+}
 
     return -1;
 }
 
 static void __exit root_shield_exit(void) {
-#if ENABLE_MODULE_MONITOR
-    unregister_module_monitor();
-#endif
-#if ENABLE_MEMORY_MONITOR
-    unregister_memory_monitor();
-#endif
-#if ENABLE_SYSCALL_MONITOR
-    unregister_syscall_monitor();
-#endif
-#if ENABLE_NETWORK_MONITOR
-    unregister_network_monitor();
-#endif
-#if ENABLE_PROCESS_MONITOR
-    unregister_process_monitor();
-#endif
-#if ENABLE_FILE_MONITOR
-    unregister_file_monitor();
-#endif
-#if ENABLE_EXEC_MONITOR
-    unregister_exec_monitor();
-#endif
+    // Clean up notification system
+    cleanup_notification_system();
+    
+    // Print final statistics before unloading
+    print_statistics();
+    if (module_monitor_enabled) {
+        unregister_module_monitor();
+    }
+    if (memory_monitor_enabled) {
+        unregister_memory_monitor();
+    }
+    if (syscall_monitor_enabled) {
+        unregister_syscall_monitor();
+    }
+    if (network_monitor_enabled) {
+        unregister_network_monitor();
+    }
+    if (process_monitor_enabled) {
+        unregister_process_monitor();
+    }
+    if (file_monitor_enabled) {
+        unregister_file_monitor();
+    }
+    if (exec_monitor_enabled) {
+        unregister_exec_monitor();
+    }
     pr_info("RootShield v%s exiting", ROOTSHIELD_VERSION_STR);
 }
 
