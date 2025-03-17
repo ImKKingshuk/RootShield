@@ -2,7 +2,7 @@
 #  Author: @ImKKingshuk
 
 MODULE_NAME := RootShield
-MODULE_OBJS := main.o exec_monitor.o file_monitor.o process_monitor.o
+MODULE_OBJS := main.o exec_monitor.o file_monitor.o process_monitor.o network_monitor.o syscall_monitor.o utils.o
 obj-m := $(MODULE_NAME).o
 $(MODULE_NAME)-objs := $(MODULE_OBJS)
 ccflags-y += -Wno-declaration-after-statement

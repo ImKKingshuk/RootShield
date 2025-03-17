@@ -59,6 +59,17 @@ To secure your Android device with **RootShield**, follow these steps:
    dmesg | grep RootShield
    ```
 
+## Features
+
+RootShield v2.0.0 includes comprehensive protection mechanisms:
+
+- **File System Protection**: Guards critical system paths and prevents unauthorized modifications to system files
+- **Process Execution Control**: Blocks execution of suspicious binaries and commands
+- **Process Manipulation Prevention**: Prevents tampering with system processes and memory injection
+- **Network Activity Monitoring**: Detects and blocks connections to suspicious ports commonly used for backdoors
+- **System Call Protection**: Monitors sensitive system calls that could be used for privilege escalation
+- **Comprehensive Logging**: Detailed security alerts with process information for better threat analysis
+
 ## Disclaimer
 
 🌟🌟🌟 "The developer of **RootShield : The Ultimate Shield for Rooted Android Devices** is not responsible for any misuse or illegal activities conducted with this tool. Use at your own risk." 🌟🌟🌟

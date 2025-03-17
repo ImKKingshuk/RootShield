@@ -32,4 +32,12 @@ void unregister_file_monitor(void);
 int register_process_monitor(void);
 void unregister_process_monitor(void);
 
+
+int register_network_monitor(void);
+void unregister_network_monitor(void);
+
+
+int register_syscall_monitor(void);
+void unregister_syscall_monitor(void);
+
 #endif /* ROOTSHIELD_H */

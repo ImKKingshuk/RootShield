@@ -42,6 +42,23 @@ static int __init root_shield_init(void) {
         unregister_file_monitor();
         return -1;
     }
+    
+    if (register_network_monitor() < 0) {
+        pr_err("Failed to register network monitor");
+        unregister_exec_monitor();
+        unregister_file_monitor();
+        unregister_process_monitor();
+        return -1;
+    }
+    
+    if (register_syscall_monitor() < 0) {
+        pr_err("Failed to register syscall monitor");
+        unregister_exec_monitor();
+        unregister_file_monitor();
+        unregister_process_monitor();
+        unregister_network_monitor();
+        return -1;
+    }
 
     pr_info("RootShield initialized successfully");
     return 0;
@@ -51,6 +68,8 @@ static void __exit root_shield_exit(void) {
     unregister_exec_monitor();
     unregister_file_monitor();
     unregister_process_monitor();
+    unregister_network_monitor();
+    unregister_syscall_monitor();
     pr_info("RootShield exiting");
 }
 
