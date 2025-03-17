@@ -101,6 +101,77 @@ RootShield supports the following configuration options that can be set when loa
 | block_only              | bool | 0       | Block operations without killing the process  |
 | verbose_logging         | bool | 0       | Enable verbose logging for debugging          |
 
+## Troubleshooting
+
+Here are some common issues and their solutions:
+
+### Module Loading Issues
+
+- **Error: "Module not found"**
+
+  - Ensure you're in the correct directory
+  - Verify the module was built successfully
+  - Check kernel version compatibility
+
+- **Error: "Required key not available"**
+  - Your kernel may require signed modules
+  - Check your device's secure boot settings
+
+### Runtime Issues
+
+- **High CPU Usage**
+
+  - Disable verbose logging
+  - Adjust monitoring scope in configuration
+  - Update to the latest version
+
+- **System Slowdown**
+  - Reduce the number of enabled monitors
+  - Set `block_only=1` instead of killing processes
+  - Consider using `notify_only=1` for testing
+
+## Development Guide
+
+### Project Structure
+
+```
+src/
+  ├── core/           # Core functionality
+  ├── include/        # Header files
+  ├── monitors/       # Individual monitoring modules
+  └── utils/          # Utility functions
+```
+
+### Adding New Features
+
+1. Create a new monitor in `src/monitors/`
+2. Define the monitor's interface in `include/`
+3. Register the monitor in `src/core/main.c`
+4. Add configuration options in `include/config.h`
+
+### Coding Standards
+
+- Follow the Linux kernel coding style
+- Add comprehensive comments and documentation
+- Include unit tests for new features
+- Maintain backward compatibility
+
+## Security Best Practices
+
+### Configuration
+
+- Start with `notify_only=1` to understand impact
+- Enable all monitoring features in production
+- Use `verbose_logging=1` only for debugging
+- Regularly update RootShield to latest version
+
+### System Integration
+
+- Monitor system logs regularly
+- Set up automated alerts for violations
+- Maintain backups before major changes
+- Test thoroughly in staging environment
+
 ### Contributing
 
 Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
