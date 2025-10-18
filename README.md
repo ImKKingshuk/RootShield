@@ -1,134 +1,262 @@
 <h1 align="center">RootShield</h1>
-<h3 align="center">v2.0.0</h3>
+<h3 align="center">v3.0.0 - The Ultimate Kernel Security Module</h3>
 
-**RootShield : The Ultimate Shield for Rooted Android Devices** - Protect your rooted Android device from unauthorized file operations and process executions! 🛡️ RootShield is a powerful kernel module that ensures your device remains secure by monitoring and preventing risky activities. Built to safeguard your most critical files and processes, RootShield is your device’s ultimate defense mechanism. 🛠️🔥
+**RootShield : The Ultimate Shield for Rooted Android Devices & Linux Systems** - Advanced kernel-level security with AI-powered threat detection, comprehensive monitoring, and enterprise-grade protection! 🛡️ RootShield v3.0 is a revolutionary security module that transforms your device into an impenetrable fortress. Built with cutting-edge technology, it provides multi-layered protection against the most sophisticated attacks. 🛠️🔥🤖
 
-## What's New (v2.0.0)
+## What's New (v3.0.0)
 
-- **Modular Architecture**: Completely redesigned with a modular structure for better maintainability and extensibility.
-- **Memory Protection**: New memory monitoring to detect and prevent buffer overflows and code injection attacks.
-- **Kernel Module Protection**: Added protection against loading of suspicious or malicious kernel modules.
-- **Runtime Configuration**: Dynamic configuration options that can be set when loading the module without recompilation.
-- **Security Statistics**: Comprehensive tracking and reporting of security events and blocked threats.
-- **Configurable Security Policies**: New configuration options to customize security responses and monitoring scope.
-- **Performance Improvements**: Optimized monitoring with conditional compilation for minimal performance impact.
+### 🚀 Revolutionary Architecture
+
+- **Plugin-Based Architecture**: Completely modular design allowing dynamic loading/unloading of security monitors
+- **Event-Driven Engine**: High-performance publish-subscribe system for inter-component communication
+- **Rule Engine**: Advanced policy evaluation with custom rule support
+- **Self-Protection**: Anti-tampering mechanisms to protect the security system itself
+
+### 🤖 AI-Powered Security
+
+- **Behavioral Analysis**: Machine learning-based anomaly detection using statistical models
+- **Advanced Anti-Rootkit**: Multi-method rootkit detection with signature, behavioral, and integrity checking
+- **Predictive Threat Detection**: Pattern recognition and correlation analysis
+- **Adaptive Security**: Dynamic threshold adjustment based on system behavior
+
+### 🛡️ Enhanced Protection Features
+
+- **Memory Forensics**: Volatility-like memory analysis capabilities
+- **File Integrity Monitoring**: Tripwire-style continuous integrity checking
+- **Network IDS**: Intrusion detection with custom rule support
+- **Hardware-Assisted Security**: TPM and secure boot integration
+- **Multi-Device Management**: Centralized security orchestration
+
+### 🌐 Enterprise Features
+
+- **RESTful API**: Complete remote management and monitoring API
+- **Web Dashboard**: Modern, responsive web interface for security management
+- **Database Backend**: Persistent storage with SQLite for logs, rules, and configurations
+- **Compliance Reporting**: Automated compliance checks and reporting
+- **Multi-Tenant Support**: Role-based access control and tenant isolation
 
 ## Features
 
-- 🛡️ **Execution Protection**: Monitors and blocks execution of sensitive binaries like `su` on rooted devices.
-- 📝 **File System Protection**: Prevents unauthorized writes and access to critical system paths.
-- 🗑️ **Process Protection**: Safeguards against suspicious process creation and manipulation.
-- 🌐 **Network Monitoring**: Detects and blocks connections to suspicious ports commonly used for backdoors.
-- 🔍 **System Call Protection**: Monitors sensitive system calls that could be used for privilege escalation.
-- 💾 **Memory Protection**: Prevents memory-based attacks like buffer overflows and code injection.
-- 📦 **Module Loading Protection**: Blocks loading of suspicious kernel modules that might contain malware.
-- ⚙️ **Configurable Security Policies**: Customize security responses based on your needs.
-- 📊 **Comprehensive Logging**: Detailed security alerts with process information for better threat analysis.
-- 🛠️ **Easy to Integrate**: Simple integration as a kernel module with a straightforward setup process.
-- 🔄 **Dynamic Module Loading/Unloading**: Easily load and unload the RootShield module as needed.
+### Core Security Monitors
+
+- 🛡️ **Execution Protection**: Advanced monitoring with behavioral analysis and AI anomaly detection
+- 📝 **File System Protection**: Real-time integrity monitoring with cryptographic verification
+- 🗑️ **Process Protection**: Anti-rootkit capabilities with hidden process detection
+- 🌐 **Network Monitoring**: IDS with custom signatures and traffic analysis
+- 🔍 **System Call Protection**: Sequence analysis and syscall chain detection
+- 💾 **Memory Protection**: Advanced forensics with injection and overflow prevention
+- 📦 **Module Loading Protection**: Signature verification and dependency checking
+- ⚙️ **Configurable Security Policies**: Dynamic rule engine with custom policy support
+
+### Advanced Security Features
+
+- 🧠 **AI Behavioral Analysis**: Statistical modeling and machine learning anomaly detection
+- 🔍 **Anti-Rootkit Engine**: Multi-vector rootkit detection and removal
+- 📊 **Real-Time Analytics**: Live threat intelligence and correlation analysis
+- 🔐 **Self-Protection**: Anti-tampering mechanisms against security system compromise
+- 📈 **Performance Monitoring**: System impact tracking and optimization
+- 🌍 **Multi-Platform Support**: Android, Linux, and embedded systems
+- 📱 **Mobile Integration**: Seamless integration with Android security frameworks
+
+### Management & Monitoring
+
+- 🌐 **REST API**: Complete programmatic access to all security functions
+- 🖥️ **Web Dashboard**: Intuitive graphical interface for security management
+- 📊 **Real-Time Monitoring**: Live security event streaming and alerting
+- 📋 **Comprehensive Logging**: Structured logging with multiple output formats
+- 📈 **Statistics & Reporting**: Detailed security metrics and compliance reports
+- 🔧 **Configuration Management**: Runtime configuration updates without restart
 
 ## Requirements
 
-- **Linux Kernel** (with Kprobes support)
-- **Rooted Android Device**
-- **GNU Make** for compiling the module
-- **Kernel Headers** installed for your Android device
+- **Linux Kernel** (4.15+ with Kprobes, eBPF support recommended)
+- **Rooted Android Device** (or Linux system with root access)
+- **GNU Make** and build tools
+- **Kernel Headers** for target kernel version
+- **SQLite3** for database backend
+- **libmicrohttpd** and **json-c** for API server
+- **GCC** with C11 support
 
-## How to Use
+## Quick Start
 
-To secure your Android device with **RootShield**, follow these steps:
+### 1. Build Everything
 
-1. Clone the repository and navigate to the project directory:
+```bash
+git clone https://github.com/ImKKingshuk/RootShield.git
+cd RootShield
+make deps-check  # Check dependencies
+make all         # Build kernel module, API server, and tools
+```
 
-   ```bash
-   git clone https://github.com/ImKKingshuk/RootShield.git
-   cd RootShield
-   ```
+### 2. Install and Start
 
-2. Build the kernel module:
+```bash
+sudo make install    # Install all components
+sudo systemctl start rootshield-api  # Start API server (if systemd service created)
+```
 
-   ```bash
-   make
-   ```
+### 3. Access Dashboard
 
-3. Load the RootShield module into your kernel with default settings:
+Open your browser to `http://localhost:8080` for the web dashboard, or use the API directly.
 
-   ```bash
-   sudo insmod rootshield.ko
-   ```
+### 4. Basic Usage
 
-   Or customize the security settings at load time:
+```bash
+# Load with default configuration
+sudo insmod rootshield.ko
 
-   ```bash
-   sudo insmod rootshield.ko exec_monitor_enabled=1 file_monitor_enabled=1 notify_only=1
-   ```
+# Load with custom security level
+sudo insmod rootshield.ko protection_level=3 verbose_logging=1
 
-4. Build and run the notification client (optional):
+# Monitor system logs
+dmesg | grep RootShield
 
-   ```bash
-   cd client
-   make
-   sudo ./rootshield_client
-   ```
+# Use CLI tool
+rootshield_cli status
+rootshield_cli rules list
+```
 
-5. To unload the module:
+## Architecture Overview
 
-   ```bash
-   sudo rmmod rootshield
-   ```
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    RootShield v3.0                          │
+├─────────────────────────────────────────────────────────────┤
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │                Web Dashboard                      │    │
+│  │  ┌─────────────────────────────────────────────┐   │    │
+│  │  │            REST API Server                  │   │    │
+│  │  └─────────────────────────────────────────────┘   │    │
+│  └─────────────────────────────────────────────────────┘    │
+├─────────────────────────────────────────────────────────────┤
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │            User Space Components                 │    │
+│  │  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐   │    │
+│  │  │  CLI    │ │  Rule   │ │ Database│ │  Alert  │   │    │
+│  │  │  Tool   │ │ Engine  │ │ Backend │ │ Manager │   │    │
+│  │  └─────────┘ └─────────┘ └─────────┘ └─────────┘   │    │
+│  └─────────────────────────────────────────────────────┘    │
+├─────────────────────────────────────────────────────────────┤
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │             Kernel Space Module                    │    │
+│  │  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐   │    │
+│  │  │  Core   │ │  Event  │ │  Plugin │ │  Self-  │   │    │
+│  │  │ Engine  │ │ System  │ │ Manager │ │ Protect │   │    │
+│  │  └─────────┘ └─────────┘ └─────────┘ └─────────┘   │    │
+│  │                                                     │    │
+│  │  ┌─────────────────────────────────────────────┐   │    │
+│  │  │             Security Plugins               │   │    │
+│  │  │  ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐   │    │
+│  │  │  │Exec │ │File │ │Proc │ │Net  │ │Anti-│   │    │
+│  │  │  │Mon  │ │Mon  │ │Mon  │ │Mon  │ │Root │   │    │
+│  │  │  └─────┘ └─────┘ └─────┘ └─────┘ └─────┘   │    │
+│  │  └─────────────────────────────────────────────┘   │    │
+│  └─────────────────────────────────────────────────────┘    │
+├─────────────────────────────────────────────────────────────┤
+│                     Hardware/Kernel                        │
+└─────────────────────────────────────────────────────────────┘
+```
 
-6. Monitor the system logs to see RootShield in action:
+## API Documentation
 
-   ```bash
-   dmesg | grep RootShield
-   ```
+### REST Endpoints
 
-## Runtime Configuration Options
+- `GET /api/v1/status` - System status
+- `GET /api/v1/events` - Security events
+- `GET/POST /api/v1/rules` - Security rules management
+- `GET /api/v1/plugins` - Plugin status
+- `GET /api/v1/statistics` - Security statistics
 
-RootShield supports the following configuration options that can be set when loading the module:
+### CLI Tool Usage
 
-| Option                  | Type | Default | Description                                   |
-| ----------------------- | ---- | ------- | --------------------------------------------- |
-| exec_monitor_enabled    | bool | 1       | Enable/disable execution monitoring           |
-| file_monitor_enabled    | bool | 1       | Enable/disable file system monitoring         |
-| process_monitor_enabled | bool | 1       | Enable/disable process monitoring             |
-| network_monitor_enabled | bool | 1       | Enable/disable network monitoring             |
-| syscall_monitor_enabled | bool | 1       | Enable/disable syscall monitoring             |
-| memory_monitor_enabled  | bool | 1       | Enable/disable memory monitoring              |
-| module_monitor_enabled  | bool | 1       | Enable/disable kernel module monitoring       |
-| kill_violating_process  | bool | 1       | Kill processes that violate security policies |
-| notify_only             | bool | 0       | Only log violations without taking action     |
-| block_only              | bool | 0       | Block operations without killing the process  |
-| verbose_logging         | bool | 0       | Enable verbose logging for debugging          |
+```bash
+rootshield_cli status                    # System status
+rootshield_cli events [limit]           # View recent events
+rootshield_cli rules list               # List active rules
+rootshield_cli rules add <json>         # Add new rule
+rootshield_cli plugins                  # List loaded plugins
+rootshield_cli config get <key>         # Get configuration
+rootshield_cli config set <key> <value> # Set configuration
+```
+
+## Configuration Options
+
+### Kernel Module Parameters
+
+| Option            | Type  | Default | Description                        |
+| ----------------- | ----- | ------- | ---------------------------------- |
+| protection_level  | int   | 2       | Security level (0-4)               |
+| verbose_logging   | bool  | 0       | Enable verbose logging             |
+| scan_interval     | int   | 30      | Background scan interval (seconds) |
+| max_profiles      | int   | 1000    | Maximum behavioral profiles        |
+| anomaly_threshold | float | 3.0     | Anomaly detection threshold        |
+
+### Runtime Configuration
+
+- Protection levels can be changed via API without restart
+- Rules can be added/modified dynamically
+- Plugin loading/unloading at runtime
+- Threshold adjustment based on system behavior
+
+## Security Best Practices
+
+### Deployment
+
+- Start with `protection_level=1` for testing
+- Enable verbose logging initially for monitoring
+- Gradually increase protection levels
+- Regular backup of configurations and logs
+
+### Operations
+
+- Monitor system logs continuously
+- Set up automated alerts for critical events
+- Regular security audits and rule updates
+- Keep system and RootShield updated
+
+### Enterprise Deployment
+
+- Use centralized management for multi-device deployments
+- Implement role-based access control
+- Regular compliance reporting
+- Integrate with existing security infrastructure
 
 ## Troubleshooting
 
-Here are some common issues and their solutions:
+### Common Issues
 
-### Module Loading Issues
+**Module Loading Fails**
 
-- **Error: "Module not found"**
+```bash
+# Check kernel version compatibility
+uname -r
+# Verify kernel headers
+ls /lib/modules/$(uname -r)/build
+# Check dmesg for detailed errors
+dmesg | tail -50
+```
 
-  - Ensure you're in the correct directory
-  - Verify the module was built successfully
-  - Check kernel version compatibility
+**High CPU Usage**
 
-- **Error: "Required key not available"**
-  - Your kernel may require signed modules
-  - Check your device's secure boot settings
+```bash
+# Reduce scan interval
+sudo insmod rootshield.ko scan_interval=60
+# Lower protection level
+sudo insmod rootshield.ko protection_level=1
+# Disable verbose logging
+sudo insmod rootshield.ko verbose_logging=0
+```
 
-### Runtime Issues
+**API Server Issues**
 
-- **High CPU Usage**
-
-  - Disable verbose logging
-  - Adjust monitoring scope in configuration
-  - Update to the latest version
-
-- **System Slowdown**
-  - Reduce the number of enabled monitors
-  - Set `block_only=1` instead of killing processes
-  - Consider using `notify_only=1` for testing
+```bash
+# Check if port is available
+netstat -tlnp | grep 8080
+# Verify dependencies
+ldd api/rootshield_api
+# Check API server logs
+./api/rootshield_api 2>&1
+```
 
 ## Development Guide
 
@@ -136,46 +264,68 @@ Here are some common issues and their solutions:
 
 ```
 src/
-  ├── core/           # Core functionality
-  ├── include/        # Header files
-  ├── monitors/       # Individual monitoring modules
-  └── utils/          # Utility functions
+├── core/           # Core engine and initialization
+├── plugins/        # Security monitor plugins
+├── events/         # Event system implementation
+├── security/       # Self-protection mechanisms
+├── include/        # Header files and interfaces
+└── utils/          # Utility functions
+
+api/                # REST API server
+web/                # Web dashboard
+database/           # Database schemas and migrations
+tools/              # CLI tools and utilities
 ```
 
-### Adding New Features
+### Adding New Plugins
 
-1. Create a new monitor in `src/monitors/`
-2. Define the monitor's interface in `include/`
-3. Register the monitor in `src/core/main.c`
-4. Add configuration options in `include/config.h`
+1. Create plugin in `src/plugins/`
+2. Implement `plugin_operations` interface
+3. Register with plugin manager
+4. Add configuration options
+5. Update documentation
 
-### Coding Standards
+### Custom Rules
 
-- Follow the Linux kernel coding style
-- Add comprehensive comments and documentation
-- Include unit tests for new features
-- Maintain backward compatibility
+Rules are defined in JSON format:
 
-## Security Best Practices
+```json
+{
+  "name": "block_suspicious_exec",
+  "action": "kill",
+  "conditions": {
+    "process_name": "evil_binary",
+    "user_id": 0
+  },
+  "priority": 100
+}
+```
 
-### Configuration
+## Contributing
 
-- Start with `notify_only=1` to understand impact
-- Enable all monitoring features in production
-- Use `verbose_logging=1` only for debugging
-- Regularly update RootShield to latest version
+Contributions are highly welcome! Areas for contribution:
 
-### System Integration
+- New security plugins
+- Performance optimizations
+- Additional API endpoints
+- Web dashboard enhancements
+- Documentation improvements
+- Security research and threat intelligence
 
-- Monitor system logs regularly
-- Set up automated alerts for violations
-- Maintain backups before major changes
-- Test thoroughly in staging environment
+Please follow the established coding standards and submit pull requests with comprehensive testing.
 
-### Contributing
+## Security Notice
 
-Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
+RootShield is designed to enhance system security, but like any security tool, it should be deployed carefully:
+
+- Test thoroughly in staging environments before production deployment
+- Monitor system performance and adjust configuration as needed
+- Keep backups of critical data and configurations
+- Report any security vulnerabilities responsibly
+- Use in accordance with applicable laws and regulations
 
 ## License
 
 GNU General Public License v3.0
+
+**RootShield v3.0** - Transforming security through innovation, intelligence, and uncompromising protection. 🛡️🤖🔥
