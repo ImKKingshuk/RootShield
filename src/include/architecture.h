@@ -1,52 +1,7 @@
 // RootShield v3.0 - Enhanced Architecture
 // =====================================
 //
-// New Modular Architecture Overview:
-//
-// 1. CORE ENGINE (Kernel Space)
-//    - Plugin Manager: Dynamic loading/unloading of monitor plugins
-//    - Event Dispatcher: Publish-subscribe event system
-//    - Configuration Manager: Runtime configuration updates
-//    - Security Engine: Rule evaluation and response coordination
-//    - Self-Protection: Anti-tampering mechanisms
-//
-// 2. MONITOR PLUGINS (Kernel Space)
-//    - Exec Monitor (Enhanced): Behavioral analysis, ML-based detection
-//    - File Monitor (Enhanced): Integrity monitoring, access pattern analysis
-//    - Process Monitor (Enhanced): Anti-rootkit, anomaly detection
-//    - Network Monitor (Enhanced): IDS rules, traffic analysis
-//    - Memory Monitor (Enhanced): Forensics, injection detection
-//    - System Call Monitor (Enhanced): Sequence analysis, syscall chains
-//    - Module Monitor (Enhanced): Dependency checking, signature verification
-//    - NEW: Registry Monitor (Windows-like registry for Android)
-//    - NEW: Hardware Monitor (TPM, secure boot verification)
-//    - NEW: Container Monitor (if applicable)
-//
-// 3. USER-SPACE COMPONENTS
-//    - API Server: RESTful management interface
-//    - Rule Engine: Advanced policy evaluation
-//    - Database Backend: Persistent storage for logs/rules/config
-//    - Web Dashboard: Real-time monitoring and configuration
-//    - Alert Manager: Notification routing and escalation
-//    - Forensics Toolkit: Incident analysis tools
-//
-// 4. ADVANCED FEATURES
-//    - Behavioral Analysis Engine
-//    - Machine Learning Anomaly Detection
-//    - Anti-Rootkit Capabilities
-//    - File Integrity Monitoring
-//    - Network Intrusion Detection
-//    - Memory Forensics
-//    - Automated Incident Response
-//    - Compliance Reporting
-//    - Multi-Device Management
-//
-// 5. SECURITY ENHANCEMENTS
-//    - Self-Protection Mechanisms
-//    - Secure Communication Channels
-//    - Cryptographic Verification
-//    - Hardware-Assisted Security
-//    - Zero-Trust Architecture
+
 
 // Version 3.0.0 Architecture Definition
 #define ROOTSHIELD_VERSION_MAJOR 3

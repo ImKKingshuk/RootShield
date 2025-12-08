@@ -1,79 +1,174 @@
 <h1 align="center">RootShield</h1>
 <h3 align="center">v3.0.0 - The Ultimate Kernel Security Module</h3>
 
-**RootShield : The Ultimate Shield for Rooted Android Devices & Linux Systems** - Advanced kernel-level security with AI-powered threat detection, comprehensive monitoring, and enterprise-grade protection! 🛡️ RootShield v3.0 is a revolutionary security module that transforms your device into an impenetrable fortress. Built with cutting-edge technology, it provides multi-layered protection against the most sophisticated attacks. 🛠️🔥🤖
+**RootShield : The Ultimate Shield for Rooted Android Devices & Linux Systems** - Advanced kernel-level security with comprehensive monitoring, behavioral analysis, and enterprise-grade protection! 🛡️ RootShield v3.0 is a revolutionary security module that transforms your device into an impenetrable fortress. Built with cutting-edge technology, it provides multi-layered protection against sophisticated attacks. 🛠️🔥🤖
 
-## What's New (v3.0.0)
 
-### 🚀 Revolutionary Architecture
 
-- **Plugin-Based Architecture**: Completely modular design allowing dynamic loading/unloading of security monitors
-- **Event-Driven Engine**: High-performance publish-subscribe system for inter-component communication
-- **Rule Engine**: Advanced policy evaluation with custom rule support
-- **Self-Protection**: Anti-tampering mechanisms to protect the security system itself
+## Features Status Legend
 
-### 🤖 AI-Powered Security
+| Tag | Meaning |
+|-----|---------|
+| ✅ | **Fully Working** - Feature is complete and operational |
+| 🔧 | **Functional** - Core functionality works, with some limitations |
+| 🚧 | **Coming Soon** - Placeholder/under development |
 
-- **Behavioral Analysis**: Machine learning-based anomaly detection using statistical models
-- **Advanced Anti-Rootkit**: Multi-method rootkit detection with signature, behavioral, and integrity checking
-- **Predictive Threat Detection**: Pattern recognition and correlation analysis
-- **Adaptive Security**: Dynamic threshold adjustment based on system behavior
+---
 
-### 🛡️ Enhanced Protection Features
+## Core Security Monitors ✅
 
-- **Memory Forensics**: Volatility-like memory analysis capabilities
-- **File Integrity Monitoring**: Tripwire-style continuous integrity checking
-- **Network IDS**: Intrusion detection with custom rule support
-- **Hardware-Assisted Security**: TPM and secure boot integration
-- **Multi-Device Management**: Centralized security orchestration
+### 🛡️ Execution Protection ✅
+- **Binary Execution Monitoring** ✅: Intercepts `do_execveat_common` via kprobe
+- **Suspicious Command Detection** ✅: Blocks su, busybox, tcpdump, strace, frida
+- **Process Termination** ✅: Kills violating processes on detection
+- **Event Notification** ✅: Sends alerts to userspace via Netlink
 
-### 🌐 Enterprise Features
+### 📝 File System Protection ✅
+- **Write Monitoring** ✅: kprobe on `vfs_write` for protected paths
+- **Open Monitoring** ✅: kprobe on `vfs_open` for sensitive files
+- **Protected Paths** ✅: /dev/block, /system/bin, /proc/kallsyms, /proc/kcore
+- **Access Control** ✅: Blocks unauthorized root process access
 
-- **RESTful API**: Complete remote management and monitoring API
-- **Web Dashboard**: Modern, responsive web interface for security management
-- **Database Backend**: Persistent storage with SQLite for logs, rules, and configurations
-- **Compliance Reporting**: Automated compliance checks and reporting
-- **Multi-Tenant Support**: Role-based access control and tenant isolation
+### 🗑️ Process Protection ✅
+- **File Deletion Monitoring** ✅: Protects critical system paths via `do_unlinkat`
+- **Fork Monitoring** ✅: Detects suspicious process creation patterns
+- **Ptrace Protection** ✅: Prevents memory injection attempts
+- **Anti-Tampering** ✅: Blocks code injection via ptrace
 
-## Features
+### 🌐 Network Monitoring ✅
+- **Outgoing Traffic Analysis** ✅: Netfilter hook on `NF_INET_LOCAL_OUT`
+- **Suspicious Port Blocking** ✅: Blocks 1337, 4444, 5555, 31337, 12345
+- **TCP/UDP Inspection** ✅: Analyzes both protocols
+- **Root Process Filtering** ✅: Monitors only elevated processes
 
-### Core Security Monitors
+### 🔍 System Call Protection ✅
+- **Sensitive Syscall Monitoring** ✅: ptrace, capset, mount, init_module
+- **kprobe Intercepts** ✅: Multiple syscall hooks
+- **Suspicious Process Detection** ✅: Identifies malicious syscall patterns
+- **Real-Time Blocking** ✅: Terminates violating processes
 
-- 🛡️ **Execution Protection**: Advanced monitoring with behavioral analysis and AI anomaly detection
-- 📝 **File System Protection**: Real-time integrity monitoring with cryptographic verification
-- 🗑️ **Process Protection**: Anti-rootkit capabilities with hidden process detection
-- 🌐 **Network Monitoring**: IDS with custom signatures and traffic analysis
-- 🔍 **System Call Protection**: Sequence analysis and syscall chain detection
-- 💾 **Memory Protection**: Advanced forensics with injection and overflow prevention
-- 📦 **Module Loading Protection**: Signature verification and dependency checking
-- ⚙️ **Configurable Security Policies**: Dynamic rule engine with custom policy support
+### 💾 Memory Protection ✅
+- **Large Allocation Detection** ✅: Flags allocations over 10MB
+- **Executable Memory Monitoring** ✅: Detects `set_memory_x` calls
+- **Buffer Overflow Detection** ✅: Identifies suspicious memory patterns
+- **Code Injection Prevention** ✅: Blocks attempts to make memory executable
 
-### Advanced Security Features
+### 📦 Module Loading Protection ✅
+- **Module Loading Intercept** ✅: kprobe on `load_module`
+- **Suspicious Name Detection** ✅: Blocks "hide", "root", "hack", "inject"
+- **Real-Time Alerts** ✅: Immediate notification on detection
 
-- 🧠 **AI Behavioral Analysis**: Statistical modeling and machine learning anomaly detection
-- 🔍 **Anti-Rootkit Engine**: Multi-vector rootkit detection and removal
-- 📊 **Real-Time Analytics**: Live threat intelligence and correlation analysis
-- 🔐 **Self-Protection**: Anti-tampering mechanisms against security system compromise
-- 📈 **Performance Monitoring**: System impact tracking and optimization
-- 🌍 **Multi-Platform Support**: Android, Linux, and embedded systems
-- 📱 **Mobile Integration**: Seamless integration with Android security frameworks
+---
 
-### Management & Monitoring
+## Advanced Security Features ✅
 
-- 🌐 **REST API**: Complete programmatic access to all security functions
-- 🖥️ **Web Dashboard**: Intuitive graphical interface for security management
-- 📊 **Real-Time Monitoring**: Live security event streaming and alerting
-- 📋 **Comprehensive Logging**: Structured logging with multiple output formats
-- 📈 **Statistics & Reporting**: Detailed security metrics and compliance reports
-- 🔧 **Configuration Management**: Runtime configuration updates without restart
+### 🧠 AI Behavioral Analysis ✅
+- **Statistical Modeling** ✅: Mean, variance, standard deviation tracking
+- **Z-Score Anomaly Detection** ✅: Configurable threshold (default: 3.0)
+- **Sliding Window Analysis** ✅: Time-based behavior profiling
+- **Per-Process Profiling** ✅: Individual process behavior tracking
+- **Global Baseline** ✅: System-wide anomaly detection
+- **Feature Extraction** ✅: Syscall frequency, process spawn rate, file access, network connections
+
+### 🔍 Anti-Rootkit Engine ✅
+- **Hidden Module Detection** ✅: Cross-references module list
+- **Syscall Hook Detection** ✅: Identifies syscall table modifications
+- **Hidden Process Detection** ✅: Task list vs /proc comparison
+- **Memory Integrity Checking** ✅: Verifies critical memory regions
+- **IDT Integrity Verification** ✅: Detects interrupt table manipulation
+- **Periodic Scanning** ✅: Automated background checks
+
+### 🛡️ Self-Protection ✅
+- **Module Locking** ✅: Prevents forced unloading (`try_module_get`)
+- **SHA-256 Integrity Hashing** ✅: Code section verification
+- **Integrity Monitoring** ✅: Continuous integrity checks
+- **Tamper Detection** ✅: Identifies modification attempts
+- **Protection Levels** ✅: BASIC, STANDARD, HIGH, MAXIMUM
+- **Emergency Mode** ✅: Lockdown on severe threats
+
+---
+
+## Infrastructure & Architecture ✅
+
+### 📡 Event System ✅
+- **Publish-Subscribe Pattern** ✅: Inter-component event communication
+- **Circular Buffer Queue** ✅: High-performance event storage (256 events)
+- **Async Dispatch** ✅: Workqueue-based processing
+- **Event Filtering** ✅: Type, severity, source-based filtering
+- **Statistics Tracking** ✅: Total/processed/dropped event metrics
+
+### 📋 Rule Engine ✅
+- **Red-Black Tree Storage** ✅: Fast rule lookup and management
+- **Priority-Based Evaluation** ✅: Higher priority rules evaluated first
+- **Condition System** ✅: Process name, file path, UID, network, syscall conditions
+- **Operators** ✅: Equals, contains, starts_with, ends_with, greater_than, less_than
+- **Dynamic Rule Loading** ✅: Runtime rule addition/removal
+- **Rule Statistics** ✅: Hit counts, evaluation times
+
+### 🔌 Plugin System ✅
+- **Dynamic Registration** ✅: Load/unload plugins at runtime
+- **Lifecycle Management** ✅: Init, start, stop, exit states
+- **Dependency Resolution** ✅: Automatic dependency checking
+- **Event Broadcasting** ✅: Plugin-to-plugin communication
+- **Configuration API** ✅: Key-value plugin configuration
+- **Health Monitoring** ✅: Plugin health checks and statistics
+
+---
+
+## Management & Monitoring ✅
+
+### 🌐 REST API ✅
+- **GET /api/v1/status** ✅: System status and version
+- **GET /api/v1/events** ✅: Security events retrieval
+- **GET/POST /api/v1/rules** ✅: Rule management
+- **GET /api/v1/plugins** ✅: Plugin status
+- **GET /api/v1/statistics** ✅: Security statistics
+- **SQLite Backend** ✅: Persistent storage
+- **JSON Responses** ✅: REST-compliant API
+
+### 📊 Real-Time Client ✅
+- **Netlink Communication** ✅: Kernel to userspace notifications
+- **Colored Output** ✅: Red (violations), yellow (blocked), blue (stats)
+- **Live Event Feed** ✅: Real-time security event display
+- **Process Information** ✅: PID, process name, path details
+
+### 🖥️ CLI Tool ✅
+- **Status Command** ✅: System status overview
+- **Events Command** ✅: Recent events with limit support
+- **Rules Command** ✅: List and create security rules
+- **Plugins Command** ✅: Active plugin listing
+- **Stats Command** ✅: Security statistics display
+- **HTTP Client** ✅: libcurl-based API communication
+- **JSON Parsing** ✅: json-c based response parsing
+
+### 📈 Statistics & Reporting ✅
+- **Per-Monitor Counters** ✅: Violations and blocks per monitor
+- **Atomic Operations** ✅: Thread-safe statistics
+- **Real-Time Updates** ✅: Live statistics tracking
+- **Reset Capability** ✅: Statistics reset functionality
+
+---
+
+## Planned Features 🚧
+
+### 🔐 Hardware-Assisted Security 🚧
+- **TPM Integration** 🚧: Trusted Platform Module support
+- **Secure Boot Verification** 🚧: Boot integrity checking
+- **Hardware Key Storage** 🚧: Cryptographic key protection
+
+### 🌐 Enterprise Features 🚧
+- **Multi-Tenant Support** 🚧: Role-based access control
+- **Compliance Reporting** 🚧: Automated compliance checks
+- **Multi-Device Management** 🚧: Centralized orchestration
+- **Web Dashboard** 🚧: Modern web interface
 
 ## Requirements
 
-- **Linux Kernel** (4.15+ with Kprobes, eBPF support recommended)
+- **Linux Kernel** (4.15+ with Kprobes and Netfilter support)
 - **Rooted Android Device** (or Linux system with root access)
 - **GNU Make** and build tools
 - **Kernel Headers** for target kernel version
-- **SQLite3** for database backend
+- **SQLite3** for database backend (API server)
 - **libmicrohttpd** and **json-c** for API server
 - **GCC** with C11 support
 
@@ -85,35 +180,50 @@
 git clone https://github.com/ImKKingshuk/RootShield.git
 cd RootShield
 make deps-check  # Check dependencies
-make all         # Build kernel module, API server, and tools
+make all         # Build kernel module and API server
 ```
 
-### 2. Install and Start
+### 2. Install and Load
 
 ```bash
 sudo make install    # Install all components
-sudo systemctl start rootshield-api  # Start API server (if systemd service created)
+# Or manually:
+sudo insmod rootshield.ko
 ```
 
-### 3. Access Dashboard
+### 3. Start Userspace Components
 
-Open your browser to `http://localhost:8080` for the web dashboard, or use the API directly.
+```bash
+# Start the notification client to receive alerts
+./client/rootshield_client
 
-### 4. Basic Usage
+# Start the API server (requires libmicrohttpd, json-c, sqlite3)
+./api/rootshield_api
+```
+
+### 4. Access API
+
+The API server listens on `http://localhost:8080`. Available endpoints:
+- `GET /api/v1/status` - System status
+- `GET /api/v1/events` - Security events
+- `GET/POST /api/v1/rules` - Security rules management
+- `GET /api/v1/plugins` - Plugin status
+- `GET /api/v1/statistics` - Security statistics
+
+### 5. Basic Usage
 
 ```bash
 # Load with default configuration
 sudo insmod rootshield.ko
 
-# Load with custom security level
-sudo insmod rootshield.ko protection_level=3 verbose_logging=1
+# Load with custom configuration
+sudo insmod rootshield.ko exec_monitor_enabled=1 file_monitor_enabled=1 verbose_logging=1
 
 # Monitor system logs
 dmesg | grep RootShield
 
-# Use CLI tool
-rootshield_cli status
-rootshield_cli rules list
+# View module parameters
+cat /sys/module/rootshield/parameters/*
 ```
 
 ## Architecture Overview
@@ -123,37 +233,52 @@ rootshield_cli rules list
 │                    RootShield v3.0                          │
 ├─────────────────────────────────────────────────────────────┤
 │  ┌─────────────────────────────────────────────────────┐    │
-│  │                Web Dashboard                      │    │
+│  │              API Server (Port 8080)                 │    │
 │  │  ┌─────────────────────────────────────────────┐   │    │
-│  │  │            REST API Server                  │   │    │
+│  │  │        REST API (libmicrohttpd)             │   │    │
+│  │  │     SQLite Database | JSON Responses        │   │    │
 │  │  └─────────────────────────────────────────────┘   │    │
 │  └─────────────────────────────────────────────────────┘    │
 ├─────────────────────────────────────────────────────────────┤
 │  ┌─────────────────────────────────────────────────────┐    │
-│  │            User Space Components                 │    │
-│  │  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐   │    │
-│  │  │  CLI    │ │  Rule   │ │ Database│ │  Alert  │   │    │
-│  │  │  Tool   │ │ Engine  │ │ Backend │ │ Manager │   │    │
-│  │  └─────────┘ └─────────┘ └─────────┘ └─────────┘   │    │
+│  │            User Space Components                    │    │
+│  │  ┌─────────────────┐ ┌─────────────────────────┐   │    │
+│  │  │   Notification  │ │     Web Dashboard       │   │    │
+│  │  │   Client        │ │     (Coming Soon)       │   │    │
+│  │  │   (Netlink)     │ │                         │   │    │
+│  │  └─────────────────┘ └─────────────────────────┘   │    │
 │  └─────────────────────────────────────────────────────┘    │
 ├─────────────────────────────────────────────────────────────┤
 │  ┌─────────────────────────────────────────────────────┐    │
-│  │             Kernel Space Module                    │    │
+│  │             Kernel Space Module                     │    │
 │  │  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐   │    │
-│  │  │  Core   │ │  Event  │ │  Plugin │ │  Self-  │   │    │
-│  │  │ Engine  │ │ System  │ │ Manager │ │ Protect │   │    │
+│  │  │  Core   │ │Notific- │ │ Runtime │ │ Stats   │   │    │
+│  │  │ Engine  │ │  ation  │ │ Config  │ │ Tracker │   │    │
 │  │  └─────────┘ └─────────┘ └─────────┘ └─────────┘   │    │
 │  │                                                     │    │
 │  │  ┌─────────────────────────────────────────────┐   │    │
-│  │  │             Security Plugins               │   │    │
-│  │  │  ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐   │    │
-│  │  │  │Exec │ │File │ │Proc │ │Net  │ │Anti-│   │    │
-│  │  │  │Mon  │ │Mon  │ │Mon  │ │Mon  │ │Root │   │    │
-│  │  │  └─────┘ └─────┘ └─────┘ └─────┘ └─────┘   │    │
+│  │  │             Security Monitors               │   │    │
+│  │  │  ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐   │   │    │
+│  │  │  │Exec │ │File │ │Proc │ │Net  │ │Sys- │   │   │    │
+│  │  │  │Mon  │ │Mon  │ │Mon  │ │Mon  │ │call │   │   │    │
+│  │  │  └─────┘ └─────┘ └─────┘ └─────┘ └─────┘   │   │    │
+│  │  │  ┌─────┐ ┌─────┐                           │   │    │
+│  │  │  │Mem  │ │Mod  │                           │   │    │
+│  │  │  │Mon  │ │Mon  │                           │   │    │
+│  │  │  └─────┘ └─────┘                           │   │    │
+│  │  └─────────────────────────────────────────────┘   │    │
+│  │                                                     │    │
+│  │  ┌─────────────────────────────────────────────┐   │    │
+│  │  │            Advanced Plugins                 │   │    │
+│  │  │  ┌───────────────┐ ┌───────────────────┐   │   │    │
+│  │  │  │  Anti-Rootkit │ │ Behavioral        │   │   │    │
+│  │  │  │  (Partial)    │ │ Analyzer          │   │   │    │
+│  │  │  └───────────────┘ └───────────────────┘   │   │    │
 │  │  └─────────────────────────────────────────────┘   │    │
 │  └─────────────────────────────────────────────────────┘    │
 ├─────────────────────────────────────────────────────────────┤
-│                     Hardware/Kernel                        │
+│                     Hardware/Kernel                         │
+│    Kprobes | Netfilter | Netlink | proc/sys interfaces      │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -161,13 +286,16 @@ rootshield_cli rules list
 
 ### REST Endpoints
 
-- `GET /api/v1/status` - System status
-- `GET /api/v1/events` - Security events
-- `GET/POST /api/v1/rules` - Security rules management
-- `GET /api/v1/plugins` - Plugin status
-- `GET /api/v1/statistics` - Security statistics
+| Endpoint | Method | Description | Status |
+|----------|--------|-------------|--------|
+| `/api/v1/status` | GET | System status | ✅ Implemented |
+| `/api/v1/events` | GET | Security events | ✅ Implemented |
+| `/api/v1/rules` | GET | List security rules | ✅ Implemented |
+| `/api/v1/rules` | POST | Create new rule | ✅ Implemented |
+| `/api/v1/plugins` | GET | Plugin status | ✅ Implemented |
+| `/api/v1/statistics` | GET | Security statistics | ✅ Implemented |
 
-### CLI Tool Usage
+### CLI Tool *(Coming Soon)*
 
 ```bash
 rootshield_cli status                    # System status
@@ -183,43 +311,41 @@ rootshield_cli config set <key> <value> # Set configuration
 
 ### Kernel Module Parameters
 
-| Option            | Type  | Default | Description                        |
-| ----------------- | ----- | ------- | ---------------------------------- |
-| protection_level  | int   | 2       | Security level (0-4)               |
-| verbose_logging   | bool  | 0       | Enable verbose logging             |
-| scan_interval     | int   | 30      | Background scan interval (seconds) |
-| max_profiles      | int   | 1000    | Maximum behavioral profiles        |
-| anomaly_threshold | float | 3.0     | Anomaly detection threshold        |
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `exec_monitor_enabled` | bool | true | Enable/disable execution monitoring |
+| `file_monitor_enabled` | bool | true | Enable/disable file system monitoring |
+| `process_monitor_enabled` | bool | true | Enable/disable process monitoring |
+| `network_monitor_enabled` | bool | true | Enable/disable network monitoring |
+| `syscall_monitor_enabled` | bool | true | Enable/disable syscall monitoring |
+| `memory_monitor_enabled` | bool | true | Enable/disable memory monitoring |
+| `module_monitor_enabled` | bool | true | Enable/disable kernel module monitoring |
+| `kill_violating_process` | bool | true | Kill processes that violate security policies |
+| `notify_only` | bool | false | Only log violations without taking action |
+| `block_only` | bool | false | Block operations without killing the process |
+| `verbose_logging` | bool | false | Enable verbose logging for debugging |
 
-### Runtime Configuration
+### Runtime Configuration Notes
 
-- Protection levels can be changed via API without restart
-- Rules can be added/modified dynamically
-- Plugin loading/unloading at runtime
-- Threshold adjustment based on system behavior
+- Parameters can be set at module load time: `insmod rootshield.ko verbose_logging=1`
+- Parameters are exposed via sysfs: `/sys/module/rootshield/parameters/`
+- Security policy validation ensures no conflicting options
 
 ## Security Best Practices
 
 ### Deployment
 
-- Start with `protection_level=1` for testing
-- Enable verbose logging initially for monitoring
-- Gradually increase protection levels
+- Start with `notify_only=1` for testing and tuning
+- Enable verbose logging initially for monitoring false positives
+- Monitor system logs and adjust protected paths as needed
 - Regular backup of configurations and logs
 
 ### Operations
 
-- Monitor system logs continuously
-- Set up automated alerts for critical events
-- Regular security audits and rule updates
+- Use the netlink client for real-time monitoring
+- Set up log aggregation for security events
+- Regular security audits based on collected statistics
 - Keep system and RootShield updated
-
-### Enterprise Deployment
-
-- Use centralized management for multi-device deployments
-- Implement role-based access control
-- Regular compliance reporting
-- Integrate with existing security infrastructure
 
 ## Troubleshooting
 
@@ -234,17 +360,17 @@ uname -r
 ls /lib/modules/$(uname -r)/build
 # Check dmesg for detailed errors
 dmesg | tail -50
+# Check if kprobes are enabled
+cat /proc/kallsyms | head
 ```
 
 **High CPU Usage**
 
 ```bash
-# Reduce scan interval
-sudo insmod rootshield.ko scan_interval=60
-# Lower protection level
-sudo insmod rootshield.ko protection_level=1
 # Disable verbose logging
 sudo insmod rootshield.ko verbose_logging=0
+# Disable specific monitors that may be too aggressive
+sudo insmod rootshield.ko syscall_monitor_enabled=0
 ```
 
 **API Server Issues**
@@ -256,73 +382,20 @@ netstat -tlnp | grep 8080
 ldd api/rootshield_api
 # Check API server logs
 ./api/rootshield_api 2>&1
+# Ensure database directory exists
+mkdir -p /var/lib/rootshield
 ```
 
-## Development Guide
+**Netlink Client Connection Issues**
 
-### Project Structure
-
-```
-src/
-├── core/           # Core engine and initialization
-├── plugins/        # Security monitor plugins
-├── events/         # Event system implementation
-├── security/       # Self-protection mechanisms
-├── include/        # Header files and interfaces
-└── utils/          # Utility functions
-
-api/                # REST API server
-web/                # Web dashboard
-database/           # Database schemas and migrations
-tools/              # CLI tools and utilities
+```bash
+# Ensure module is loaded first
+lsmod | grep rootshield
+# Check dmesg for netlink socket errors
+dmesg | grep "RootShield.*netlink"
 ```
 
-### Adding New Plugins
 
-1. Create plugin in `src/plugins/`
-2. Implement `plugin_operations` interface
-3. Register with plugin manager
-4. Add configuration options
-5. Update documentation
-
-### Custom Rules
-
-Rules are defined in JSON format:
-
-```json
-{
-  "name": "block_suspicious_exec",
-  "action": "kill",
-  "conditions": {
-    "process_name": "evil_binary",
-    "user_id": 0
-  },
-  "priority": 100
-}
-```
-
-## Contributing
-
-Contributions are highly welcome! Areas for contribution:
-
-- New security plugins
-- Performance optimizations
-- Additional API endpoints
-- Web dashboard enhancements
-- Documentation improvements
-- Security research and threat intelligence
-
-Please follow the established coding standards and submit pull requests with comprehensive testing.
-
-## Security Notice
-
-RootShield is designed to enhance system security, but like any security tool, it should be deployed carefully:
-
-- Test thoroughly in staging environments before production deployment
-- Monitor system performance and adjust configuration as needed
-- Keep backups of critical data and configurations
-- Report any security vulnerabilities responsibly
-- Use in accordance with applicable laws and regulations
 
 ## License
 

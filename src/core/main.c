@@ -5,13 +5,27 @@
 #include "../include/runtime_config.h"
 #include "../include/statistics.h"
 #include "../include/notification.h"
+#include "../include/events.h"
+#include "../include/rules.h"
+#include "../include/plugin.h"
+#include "../include/self_protection.h"
+
+// Forward declarations for new systems
+extern int init_event_system(void);
+extern void exit_event_system(void);
+extern int init_rule_engine(void);
+extern void exit_rule_engine(void);
+extern int init_plugin_manager(void);
+extern void exit_plugin_manager(void);
+extern int init_self_protection(protection_level_t level);
+extern void exit_self_protection(void);
 
 void print_banner(void) {
     const char *banner[] = {
         "***************************************************",
         "*                     RootShield                  *",
         "*  The Ultimate Shield for Rooted Android Device  *",
-        "*                       v2.0.0                    *",
+        "*                       v3.0.0                    *",
         "*           ----------------------------          *",
         "*                                 by @ImKKingshuk *",
         "*     Github- https://github.com/ImKKingshuk      *",
@@ -27,7 +41,7 @@ static int __init root_shield_init(void) {
     int ret = 0;
     print_banner();
 
-    pr_info("RootShield initializing");
+    pr_info("RootShield v3.0 initializing");
     
     // Initialize runtime configuration
     init_runtime_config();
@@ -45,6 +59,34 @@ static int __init root_shield_init(void) {
     if (ret < 0) {
         pr_err("Failed to initialize notification system: %d", ret);
         goto cleanup_stats;
+    }
+    
+    // Initialize event system (v3.0)
+    ret = init_event_system();
+    if (ret < 0) {
+        pr_err("Failed to initialize event system: %d", ret);
+        goto cleanup_notification;
+    }
+    
+    // Initialize rule engine (v3.0)
+    ret = init_rule_engine();
+    if (ret < 0) {
+        pr_err("Failed to initialize rule engine: %d", ret);
+        goto cleanup_events;
+    }
+    
+    // Initialize plugin manager (v3.0)
+    ret = init_plugin_manager();
+    if (ret < 0) {
+        pr_err("Failed to initialize plugin manager: %d", ret);
+        goto cleanup_rules;
+    }
+    
+    // Initialize self-protection (v3.0)
+    ret = init_self_protection(PROTECTION_LEVEL_STANDARD);
+    if (ret < 0) {
+        pr_warn("Self-protection init failed: %d (continuing anyway)", ret);
+        // Don't fail completely - self-protection is optional
     }
 
 if (exec_monitor_enabled) {
@@ -135,15 +177,41 @@ if (exec_monitor_enabled) {
     unregister_exec_monitor();
 }
 
+cleanup_rules:
+    exit_rule_engine();
+    
+cleanup_events:
+    exit_event_system();
+    
+cleanup_notification:
+    cleanup_notification_system();
+
+cleanup_stats:
     return -1;
 }
 
 static void __exit root_shield_exit(void) {
+    pr_info("RootShield v%s exiting", ROOTSHIELD_VERSION_STR);
+    
+    // Exit self-protection first (to allow unloading)
+    exit_self_protection();
+    
+    // Exit plugin manager
+    exit_plugin_manager();
+    
+    // Exit rule engine
+    exit_rule_engine();
+    
+    // Exit event system
+    exit_event_system();
+    
     // Clean up notification system
     cleanup_notification_system();
     
     // Print final statistics before unloading
     print_statistics();
+    
+    // Unregister all monitors
     if (module_monitor_enabled) {
         unregister_module_monitor();
     }
@@ -165,7 +233,8 @@ static void __exit root_shield_exit(void) {
     if (exec_monitor_enabled) {
         unregister_exec_monitor();
     }
-    pr_info("RootShield v%s exiting", ROOTSHIELD_VERSION_STR);
+    
+    pr_info("RootShield shutdown complete");
 }
 
 module_init(root_shield_init);

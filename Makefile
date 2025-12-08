@@ -1,11 +1,7 @@
-# RootShield v3.0 - Enhanced Build System
+# RootShield 
+# Author: @ImKKingshuk
 # ======================================
-#
-# This Makefile builds the complete RootShield v3.0 system including:
-# - Kernel module with plugin architecture
-# - User-space API server
-# - Web dashboard
-# - Additional tools
+
 
 # Version information
 VERSION_MAJOR := 3
@@ -91,7 +87,7 @@ $(API_DIR)/rootshield_api: $(API_DIR)/rootshield_api.c
 # CLI tool build
 $(TOOLS_DIR)/rootshield_cli: $(TOOLS_DIR)/rootshield_cli.c
 	@echo "Building CLI tool..."
-	$(CC) $(CFLAGS) -o $@ $< $(LIBJSON) $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $@ $< -lcurl $(LIBJSON) $(LDFLAGS)
 	@echo "CLI tool built successfully"
 
 # Installation
